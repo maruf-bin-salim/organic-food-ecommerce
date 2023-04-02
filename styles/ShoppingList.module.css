@@ -16,8 +16,29 @@
     height: max-content;
 }
 
-.hamburger, .cart {
+.hamburger,
+.cart {
     background-color: rebeccapurple;
-    height:  40px;
+    height: 40px;
     width: 40px;
+    cursor: pointer;
+}
+
+.hamburger {
+    background: url('/hamburger.svg');
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.cart {
+    background: url('/cart.svg');
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.pageTitle {
+    font-size: 22px;
+    font-weight: 600;
 }
