@@ -1,20 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
+
 import styles from '../styles/ShoppingList.module.css'
 
-import { useProducts } from '@/hooks/useProducts';
+import Navigation from '@/components/navigation/navigation';
+import { useShoppingListProducts } from '@/hooks/useShoppingListProducts';
 
 const ShoppingList = () => {
 
-  const { products } = useProducts();
+
+  const { products } = useShoppingListProducts();
+  const [isNavOpen, setIsNavOpen] = useState(false);
+
+
+  if (isNavOpen) {
+    return (
+      <Navigation
+        setIsNavOpen={setIsNavOpen}
+      />
+    )
+  }
+
+
   return (
     <div className={styles.page}>
 
       <div className={styles.topBar}>
-        <div className={styles.hamburger} />
+        <div className={styles.hamburger} onClick={() => { setIsNavOpen(true) }} />
         <div className={styles.pageTitle}> Shopping List</div>
         <div className={styles.cart} />
       </div>
-
 
       <div className={styles.products}>
         {
@@ -26,6 +40,7 @@ const ShoppingList = () => {
               <div className={styles.productName}>{product.name}</div>
               <div className={styles.productPrice}>${product.price}</div>
               <div className={styles.addProduct} />
+              <div className={styles.removeFromList} />
             </div>
           ))
         }
