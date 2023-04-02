@@ -7,7 +7,7 @@ import { useProducts } from '@/hooks/useProducts';
 import FilterBar from '@/components/FilterBar/filterBar';
 import filter_types from '@/data/store_filter_types';
 import { useCart } from '@/hooks/useCart';
-import { decreaseQuantityOfProductInCart, increaseQuantityOfProductInCart, isProductInCart } from '@/utils/cartManager';
+import { decreaseQuantityOfProductInCart, increaseQuantityOfProductInCart, isProductInCart, removeProductFromCart } from '@/utils/cartManager';
 
 
 const Store = () => {
@@ -65,7 +65,7 @@ const Store = () => {
                             <div className={styles.productPrice}>${product.price}</div>
                             {
                                 isProductInCart(product) &&
-                                <div className={styles.removeProduct} onClick={() => { decreaseQuantityOfProductInCart(product); router.reload() }} />
+                                <div className={styles.removeProduct} onClick={() => { removeProductFromCart(product); router.reload() }} />
                             }
                             {
 

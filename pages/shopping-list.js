@@ -6,7 +6,7 @@ import styles from '../styles/ShoppingList.module.css'
 import Navigation from '@/components/navigation/navigation';
 import { useShoppingListProducts } from '@/hooks/useShoppingListProducts';
 import { useCart } from '@/hooks/useCart';
-import { decreaseQuantityOfProductInCart, increaseQuantityOfProductInCart, isProductInCart } from '@/utils/cartManager';
+import { decreaseQuantityOfProductInCart, increaseQuantityOfProductInCart, isProductInCart, removeProductFromCart } from '@/utils/cartManager';
 
 const ShoppingList = () => {
 
@@ -51,7 +51,7 @@ const ShoppingList = () => {
               {
                 
                 isProductInCart(product) &&
-                <div className={styles.removeProduct} onClick={() => { decreaseQuantityOfProductInCart(product); router.reload() }} />
+                <div className={styles.removeProduct} onClick={() => { removeProductFromCart(product); router.reload() }} />
               }
               {
 

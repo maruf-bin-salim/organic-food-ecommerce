@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 import Navigation from "@/components/navigation/navigation";
 import { useShoppingListProducts } from "@/hooks/useShoppingListProducts";
-import { checkIfProductExists, decreaseQuantityOfProductInCart, increaseQuantityOfProductInCart, isProductInCart } from "@/utils/cartManager";
+import { checkIfProductExists, decreaseQuantityOfProductInCart, increaseQuantityOfProductInCart, isProductInCart, removeProductFromCart } from "@/utils/cartManager";
 import { useRouter } from "next/router";
 
 export default function Home() {
@@ -77,7 +77,7 @@ export default function Home() {
               <div className={styles.productPrice}>${product.price}</div>
               {
                 isProductInCart(product) &&
-                <div className={styles.removeProduct} onClick={() => { decreaseQuantityOfProductInCart(product); router.reload() }} />
+                <div className={styles.removeProduct} onClick={() => { removeProductFromCart(product); router.reload() }} />
               }
               {
                 !isProductInCart(product) &&
