@@ -1,14 +1,20 @@
 import React, { useState } from 'react'
+import { useRouter } from 'next/router';
 
 import styles from '../styles/ShoppingList.module.css'
 
 import Navigation from '@/components/navigation/navigation';
 import { useShoppingListProducts } from '@/hooks/useShoppingListProducts';
+import { useCart } from '@/hooks/useCart';
+import { decreaseQuantityOfProductInCart, increaseQuantityOfProductInCart, isProductInCart } from '@/utils/cartManager';
 
 const ShoppingList = () => {
 
 
   const { products } = useShoppingListProducts();
+  const { gotoCart } = useCart();
+  const router = useRouter();
+
   const [isNavOpen, setIsNavOpen] = useState(false);
 
 
@@ -21,13 +27,16 @@ const ShoppingList = () => {
   }
 
 
+
+
+
   return (
     <div className={styles.page}>
 
       <div className={styles.topBar}>
         <div className={styles.hamburger} onClick={() => { setIsNavOpen(true) }} />
         <div className={styles.pageTitle}> Shopping List</div>
-        <div className={styles.cart} />
+        <div className={styles.cart} onClick={gotoCart} />
       </div>
 
       <div className={styles.products}>
@@ -39,7 +48,16 @@ const ShoppingList = () => {
               </div>
               <div className={styles.productName}>{product.name}</div>
               <div className={styles.productPrice}>${product.price}</div>
-              <div className={styles.addProduct} />
+              {
+                
+                isProductInCart(product) &&
+                <div className={styles.removeProduct} onClick={() => { decreaseQuantityOfProductInCart(product); router.reload() }} />
+              }
+              {
+
+                !isProductInCart(product) &&
+                <div className={styles.addProduct} onClick={() => { increaseQuantityOfProductInCart(product); router.reload() }} />
+              }
               <div className={styles.removeFromList} />
             </div>
           ))

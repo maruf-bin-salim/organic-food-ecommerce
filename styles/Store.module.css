@@ -96,7 +96,6 @@
     background-repeat: no-repeat;
     background-position: center;
 }
-
 .removeProduct {
     height: 40px;
     width: 40px;
@@ -108,13 +107,13 @@
     background-position: center;
 }
 
-.removeFromList {
-    height: 40px;
-    width: 40px;
+.wishlistProduct {
+    height: 30px;
+    width: 30px;
     margin-left: 10px;
     cursor: pointer;
-    background: url('/remove.svg');
-    background-size: 30px;
+    background: url('/wishlist.svg');
+    background-size: 20px;
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -128,7 +127,4 @@
         padding-right: 20%;
     }
 
-    .navLink {
-        width: 60%;
-    }
 }

@@ -1,0 +1,32 @@
+.filterBar {
+    display: grid;
+    justify-content: space-around;
+    align-items: center;
+    height: max-content;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.filterButton, .activeFilterButton {
+    border: none;
+    padding: 20px;
+    padding-bottom: 10px;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.activeFilterButton {
+    border-bottom: 5px solid #73b651;
+}
+
+
+/* add a media query greater than phone size */
+@media (min-width: 600px) {
+    .filterBar {
+        width: 60%;
+        margin: 0 auto;
+    }
+}

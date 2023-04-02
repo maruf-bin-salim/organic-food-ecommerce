@@ -112,6 +112,27 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+.removeProduct {
+    height: 40px;
+    width: 40px;
+    margin-left: 10px;
+    cursor: pointer;
+    background: url('/decrease-from-cart.svg');
+    background-size: 25px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.wishlistProduct {
+    height: 30px;
+    width: 30px;
+    margin-left: 10px;
+    cursor: pointer;
+    background: url('/wishlist.svg');
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
 
 
 /* add a media query greater than phone size */
