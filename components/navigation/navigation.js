@@ -4,8 +4,8 @@ import styles from './navigation.module.css'
 
 
 const Navigation = ({ setIsNavOpen }) => {
-  const router = useRouter();
-  
+    const router = useRouter();
+
 
     return (
         <div className={styles.page}>
@@ -19,6 +19,13 @@ const Navigation = ({ setIsNavOpen }) => {
                 >
                     <div className={styles.navLinkText}>Home</div>
                 </div>
+
+                <div className={styles.navLink}
+                    onClick={() => { router.push('/cart') }}
+                >
+                    <div className={styles.navLinkText}>Cart</div>
+                </div>
+
                 <div className={styles.navLink}
                     onClick={() => { router.push('/shopping-list') }}
                 >
