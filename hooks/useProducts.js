@@ -8,5 +8,5 @@ export const useProducts = () => {
     useEffect(() => {
         setProducts(products)
     }, []);
-    return loadedProducts;
+    return { products : loadedProducts};
 }

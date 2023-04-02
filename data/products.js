@@ -1,4 +1,4 @@
-export default products = [
+let products = [
     {
         id: 1,
         name: 'Product 1',
@@ -24,3 +24,5 @@ export default products = [
         image: 'https://picsum.photos/200/300'
     },
 ];
+
+export default products;
