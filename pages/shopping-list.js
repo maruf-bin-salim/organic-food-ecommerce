@@ -5,15 +5,11 @@ const ShoppingList = () => {
   return (
     <div className={styles.page}>
       <div className={styles.topBar}>
-        <div>
-          Hamburger
-        </div>
+        <div className={styles.hamburger} />
         <div>
           Shopping List
         </div>
-        <div>
-          cart
-        </div>
+        <div className={styles.cart} />
       </div>
     </div>
   )

@@ -6,4 +6,18 @@
 
 .topBar {
     background-color: green;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+    padding: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    height: max-content;
+}
+
+.hamburger, .cart {
+    background-color: rebeccapurple;
+    height:  40px;
+    width: 40px;
 }
