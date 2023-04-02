@@ -16,19 +16,20 @@ const ShoppingList = () => {
       </div>
 
 
-      {
-        products.map((product) => (
-          <div className={styles.product} key={product.id}>
-            <div className={styles.productImage}>
-              <img src={product.image} alt={product.name} />
+      <div className={styles.products}>
+        {
+          products.map((product) => (
+            <div className={styles.product} key={product.id}>
+              <div className={styles.productImage}>
+                <img src={product.image} alt={product.name} />
+              </div>
+              <div className={styles.productName}>{product.name}</div>
+              <div className={styles.productPrice}>${product.price}</div>
+              <div className={styles.addProduct} />
             </div>
-            <div className={styles.productName}>{product.name}</div>
-            <div className={styles.productPrice}>${product.price}</div>
-          </div>
-        ))
-      }
-
-
+          ))
+        }
+      </div>
 
     </div>
   )
