@@ -1,6 +1,6 @@
 import Navigation from '@/components/navigation/navigation';
 import { useCart } from '@/hooks/useCart';
-import { decreaseQuantityOfProductInCart, increaseQuantityOfProductInCart } from '@/utils/cartManager';
+import { decreaseQuantityOfProductInCart, getCartTotal, increaseQuantityOfProductInCart, removeProductFromCart } from '@/utils/cartManager';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 
@@ -38,7 +38,7 @@ const Cart = () => {
 
             <div className={styles.products}>
                 {
-                    products.length === 0 && 
+                    products.length === 0 &&
                     <div className={styles.emptyCart}>
                         <div className={styles.emptyCartText}>Your cart is empty</div>
                     </div>
@@ -46,14 +46,14 @@ const Cart = () => {
                 {
                     products.map((product) => (
                         <div className={styles.product} key={product.id}>
+                            <div className={styles.removeProductFromCart} onClick={() => { removeProductFromCart(product); router.reload() }} />
+
                             <div className={styles.productInformation}>
                                 <div className={styles.productImage}>
                                     <img src={product.image} alt={product.name} />
                                 </div>
                                 <div className={styles.productName}>{product.name}</div>
                                 <div className={styles.productPrice}>${product.price}</div>
-
-
                                 <div> x {product.quantity}</div>
                             </div>
                             <div className={styles.productActionButtons}>
@@ -65,6 +65,15 @@ const Cart = () => {
                     ))
                 }
             </div>
+
+
+            {
+                products.length > 0 &&
+                <div className={styles.checkout}>
+                    <div className={styles.checkoutButtonTotal}>{`Total: ${getCartTotal()}`} </div>
+                    <div className={styles.checkoutButton}>Checkout  </div>
+                </div>
+            }
 
         </div>
     )
