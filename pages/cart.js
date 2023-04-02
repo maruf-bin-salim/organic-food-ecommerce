@@ -58,7 +58,7 @@ const Cart = () => {
                             </div>
                             <div className={styles.productActionButtons}>
                                 <div className={styles.removeProduct} onClick={() => { decreaseQuantityOfProductInCart(product); router.reload() }} />
-                                <div className={styles.productQuantity}>${product.quantity}</div>
+                                <div className={styles.productQuantity}>{product.quantity}</div>
                                 <div className={styles.addProduct} onClick={() => { increaseQuantityOfProductInCart(product); router.reload() }} />
                             </div>
                         </div>
