@@ -1,0 +1,2 @@
+let OPEN_CAGE_DATA_API_KEY = "79fbb1b0a696447eb19b3a6a89f5d64c";
+export { OPEN_CAGE_DATA_API_KEY };
