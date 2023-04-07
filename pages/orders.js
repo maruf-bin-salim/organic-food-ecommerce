@@ -3,6 +3,7 @@ import useOrders from '@/hooks/useOrders';
 import styles from '../styles/Orders.module.css'
 import Navigation from '@/components/navigation/navigation';
 import { useCart } from '@/hooks/useCart';
+import { useRouter } from 'next/router';
 
 
 const Orders = () => {
@@ -11,6 +12,7 @@ const Orders = () => {
 
     let orders = useOrders();
     let { gotoCart } = useCart();
+    const router = useRouter();
 
 
 
@@ -59,7 +61,12 @@ const Orders = () => {
                                 <div className={styles.orderAddress}>{`Address: ${order.location.address}`}</div>
                                 <div className={styles.orderTotal}>{`Total : ${order.cart.total}$`}</div>
 
-                                <div className={styles.goToOrder}>{"Go To Order"}</div>
+                                <div className={styles.goToOrder} onClick={() => {
+                                    let route = "order" + "/" + order.orderID;
+                                    router.push(route);
+                                }}>
+                                    {"Go To Order"}
+                                </div>
                             </div>
                         )
 
