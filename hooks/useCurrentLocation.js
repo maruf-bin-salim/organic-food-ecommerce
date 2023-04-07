@@ -7,6 +7,7 @@ function useCurrentLocation() {
     const [currentLocation, setCurrentLocation] = useState({
         position: null,
         address: "",
+        zipCode: null,
         error: null,
     });
 
@@ -16,11 +17,13 @@ function useCurrentLocation() {
             const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${OPEN_CAGE_DATA_API_KEY}`;
             const response = await fetch(url);
             const data = await response.json();
-            const address = data.results[0].formatted;
+            const address = data?.results[0]?.formatted;
+            const zipCode = data?.results[0]?.components?.postcode;
 
             setCurrentLocation({
                 position: { lat: latitude, lng: longitude },
                 address: address,
+                zipCode: zipCode,
                 error: null,
             });
         };
@@ -30,6 +33,7 @@ function useCurrentLocation() {
             setCurrentLocation({
                 position: null,
                 address: "",
+                zipCode: null,
                 error: err.message,
             });
         };

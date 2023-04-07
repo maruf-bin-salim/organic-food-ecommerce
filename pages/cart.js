@@ -71,7 +71,7 @@ const Cart = () => {
                 products.length > 0 &&
                 <div className={styles.checkout}>
                     <div className={styles.checkoutButtonTotal}>{`Total: ${getCartTotal()}`} </div>
-                    <div className={styles.checkoutButton}>Checkout  </div>
+                    <div className={styles.checkoutButton} onClick={() => { router.push('/checkout') }}>Checkout  </div>
                 </div>
             }
 
