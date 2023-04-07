@@ -98,7 +98,7 @@ function checkout() {
 
 
             <div className={styles.confirmCheckoutButton}
-                onClick={() => { router.push('/checkout') }}>
+                onClick={() => { }}>
                 confirm purchase
             </div>
 
