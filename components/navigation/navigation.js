@@ -37,6 +37,12 @@ const Navigation = ({ setIsNavOpen }) => {
                 >
                     <div className={styles.navLinkText}>Shopping List</div>
                 </div>
+
+                <div className={styles.navLink}
+                    onClick={() => { router.push('/orders') }}
+                >
+                    <div className={styles.navLinkText}>Orders</div>
+                </div>
             </div>
         </div>
     )

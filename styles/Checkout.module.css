@@ -55,16 +55,20 @@
 .addressInput {
     margin: 10px;
     padding: 10px;
-    border: 1px solid black;
     border-radius: 5px;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 4px 8px #00000033;
+
 }
 
 .addressInput input {
     padding: 5px;
+    border: none;
+    box-shadow: 0 1px 2px #00000033;
+
 }
 
 .map {
@@ -83,4 +87,17 @@
     width: 100%;
     border-top: 1px solid black;
     cursor: pointer;
+}
+
+
+
+
+/* add a media query greater than phone size */
+@media (min-width: 600px) {
+
+    .map, .main {
+        padding-left: 20%;
+        padding-right: 20%;
+    }
+
 }
