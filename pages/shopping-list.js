@@ -7,6 +7,7 @@ import Navigation from '@/components/navigation/navigation';
 import { useShoppingListProducts } from '@/hooks/useShoppingListProducts';
 import { useCart } from '@/hooks/useCart';
 import { decreaseQuantityOfProductInCart, increaseQuantityOfProductInCart, isProductInCart, removeProductFromCart } from '@/utils/cartManager';
+import AuthUI from '@/components/AuthUI/AuthUI';
 
 const ShoppingList = () => {
 
@@ -68,4 +69,9 @@ const ShoppingList = () => {
   )
 }
 
-export default ShoppingList
+
+export default function Page() {
+  return (
+      <AuthUI InnerComponent={ShoppingList} />
+  )
+}

@@ -2,7 +2,13 @@ import { useProducts } from '@/hooks/useProducts';
 import React, { useState, useEffect } from 'react';
 import styles from '@/styles/Admin.module.css';
 
-function EditableProduct({ product: passedProduct }) {
+import { upsertProduct, removeProduct } from '@/database/database_functions';
+import { useRouter } from 'next/router';
+
+function EditableProduct({ product: passedProduct, setIsLoading }) {
+
+    const router = useRouter();
+
 
     const [product, setProduct] = useState(passedProduct);
 
@@ -41,6 +47,19 @@ function EditableProduct({ product: passedProduct }) {
         });
     }
 
+    async function handleSave() {
+        setIsLoading(true);
+        await upsertProduct(product);
+        router.reload();
+    }
+
+    async function handleDelete() {
+        setIsLoading(true);
+        await removeProduct(product.id);
+        router.reload();
+    }
+
+
 
     return (
         <div className={styles.product} key={product.id}>
@@ -69,8 +88,8 @@ function EditableProduct({ product: passedProduct }) {
             </div>
 
             <div className={styles.buttons}>
-                <button className={styles.saveButton}>Save</button>
-                <button className={styles.deleteButton}>Delete</button>
+                <button className={styles.saveButton} onClick={handleSave}  >Save</button>
+                <button className={styles.deleteButton} onClick={handleDelete} >Delete</button>
             </div>
         </div>
 
@@ -78,9 +97,12 @@ function EditableProduct({ product: passedProduct }) {
 
 }
 
-function AddNewProduct() {
+function AddNewProduct({ setIsLoading }) {
 
     const [product, setProduct] = useState({});
+    const router = useRouter();
+
+
 
     useEffect(() => {
 
@@ -133,7 +155,9 @@ function AddNewProduct() {
     }
 
     async function handleSave() {
-        console.log(product);
+        setIsLoading(true);
+        await upsertProduct(product);
+        router.reload();
     }
 
     return (
@@ -198,14 +222,24 @@ function ProductManager({ logout }) {
 
     const { products } = useProducts();
 
+    const [isLoading, setIsLoading] = useState(false);
+
+    if (isLoading) {
+        return <div className={styles.page}>Loading...</div>
+    }
+
     return (
         <div className={styles.page}>
             <div className={styles.logout} onClick={logout}>Log Out</div>
             <div className={styles.products}>
-                <AddNewProduct />
+                <AddNewProduct
+                    setIsLoading={setIsLoading}
+                />
                 {
                     products?.map((product) => (
-                        <EditableProduct key={product.id} product={product} />
+                        <EditableProduct
+                            setIsLoading={setIsLoading}
+                            key={product.id} product={product} />
                     ))
                 }
             </div>

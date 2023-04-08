@@ -4,6 +4,7 @@ import styles from '../styles/Orders.module.css'
 import Navigation from '@/components/navigation/navigation';
 import { useCart } from '@/hooks/useCart';
 import { useRouter } from 'next/router';
+import AuthUI from '@/components/AuthUI/AuthUI';
 
 
 const Orders = () => {
@@ -78,4 +79,10 @@ const Orders = () => {
     )
 }
 
-export default Orders
+
+export default function Page() {
+    return (
+        <AuthUI InnerComponent={Orders} />
+    )
+}
+

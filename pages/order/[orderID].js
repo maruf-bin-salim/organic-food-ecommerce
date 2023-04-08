@@ -1,3 +1,4 @@
+import AuthUI from '@/components/AuthUI/AuthUI';
 import useOrder from '@/hooks/useOrder';
 import { Router, useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -125,4 +126,9 @@ const Order = () => {
     return null;
 }
 
-export default Order
+
+export default function Page() {
+    return (
+        <AuthUI InnerComponent={Order} />
+    )
+}

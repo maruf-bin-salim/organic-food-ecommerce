@@ -4,8 +4,9 @@ import useCurrentLocation from '@/hooks/useCurrentLocation'
 import React, { useEffect, useState } from 'react'
 import styles from '@/styles/Checkout.module.css'
 import { useCart } from '@/hooks/useCart';
+import AuthUI from '@/components/AuthUI/AuthUI';
 
-function checkout() {
+function Checkout() {
 
 
 
@@ -107,4 +108,10 @@ function checkout() {
     )
 }
 
-export default checkout
+export default function Page() {
+    return (
+        <AuthUI InnerComponent={Checkout} />
+    )
+}
+
+

@@ -8,6 +8,7 @@ import FilterBar from '@/components/FilterBar/filterBar';
 import filter_types from '@/data/store_filter_types';
 import { useCart } from '@/hooks/useCart';
 import { decreaseQuantityOfProductInCart, increaseQuantityOfProductInCart, isProductInCart, removeProductFromCart } from '@/utils/cartManager';
+import AuthUI from '@/components/AuthUI/AuthUI';
 
 
 const Store = () => {
@@ -24,7 +25,7 @@ const Store = () => {
 
     const filterProducts = (products, filter) => {
         return products.filter((product) => {
-            return filter === filter_types.all || product.category === filter;
+            return filter === filter_types.all || product.category.toLowerCase() === filter.toLowerCase();
         })
     }
 
@@ -82,4 +83,11 @@ const Store = () => {
     )
 }
 
-export default Store
+
+
+
+export default function Page() {
+    return (
+        <AuthUI InnerComponent={Store} />
+    )
+}

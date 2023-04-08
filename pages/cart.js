@@ -1,3 +1,4 @@
+import AuthUI from '@/components/AuthUI/AuthUI';
 import Navigation from '@/components/navigation/navigation';
 import { useCart } from '@/hooks/useCart';
 import { decreaseQuantityOfProductInCart, getCartTotal, increaseQuantityOfProductInCart, removeProductFromCart } from '@/utils/cartManager';
@@ -79,4 +80,11 @@ const Cart = () => {
     )
 }
 
-export default Cart
+
+export default function Page() {
+    return (
+        <AuthUI InnerComponent={Cart} />
+    )
+}
+
+
