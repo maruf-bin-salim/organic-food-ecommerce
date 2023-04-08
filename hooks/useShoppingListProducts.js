@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 export const useShoppingListProducts = () => {
     const [loadedProducts, setProducts] = useState([]);
     useEffect(() => {
-        setProducts(products)
+
+        setProducts(products);
     }, []);
-    return { products : loadedProducts};
+    return { products: loadedProducts };
 }

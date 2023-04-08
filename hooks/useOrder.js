@@ -8,6 +8,7 @@ function useOrder(orderID) {
 
     useEffect(() => {
         const fetchOrder = async () => {
+            if (!orderID) return;
             let filteredOrders = orders.filter(order => order.orderID === orderID);
             if (filteredOrders.length === 0) {
                 setOrder(null);

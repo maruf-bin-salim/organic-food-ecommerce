@@ -2,15 +2,17 @@ import { useEffect, useState } from "react";
 
 import styles from "../styles/Home.module.css";
 import Navigation from "@/components/navigation/navigation";
-import { useShoppingListProducts } from "@/hooks/useShoppingListProducts";
 import { checkIfProductExists, decreaseQuantityOfProductInCart, increaseQuantityOfProductInCart, isProductInCart, removeProductFromCart } from "@/utils/cartManager";
 import { useRouter } from "next/router";
+import { useProducts } from "@/hooks/useProducts";
+import { removeProduct, upsertProduct } from "@/database/database_functions";
+
+
 
 export default function Home() {
 
   const router = useRouter();
-
-  const { products } = useShoppingListProducts();
+  const { products } = useProducts();
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [filter, setFilter] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -60,7 +62,7 @@ export default function Home() {
               onChange={(e) => { setFilter(e.target.value) }}
             />
           </div>
-          <div className={styles.search} />
+          <div className={styles.search} onClick={testUpsert} />
         </div>
       </div>
 
