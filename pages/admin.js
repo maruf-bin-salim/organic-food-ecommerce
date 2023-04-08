@@ -24,11 +24,29 @@ function EditableProduct({ product: passedProduct, setIsLoading }) {
         if (isNaN(event.target.value)) {
             return;
         }
+        if (event.target.value === "") {
+            setProduct({
+                ...product,
+                price: 0,
+            });
+            return;
+        }
+
+
+        if (event.target.value.startsWith("0") && event.target.value !== "0") {
+            setProduct({
+                ...product,
+                price: event.target.value.substring(1),
+            });
+            return;
+        }
 
         setProduct({
             ...product,
             price: event.target.value,
         });
+
+
     }
 
 
@@ -111,7 +129,7 @@ function AddNewProduct({ setIsLoading }) {
         setProduct({
             id: uniqueIDOfString,
             name: "",
-            price: "",
+            price: "0",
             image: "",
             category: "",
             wishlistedBy: [],
@@ -132,11 +150,29 @@ function AddNewProduct({ setIsLoading }) {
         if (isNaN(event.target.value)) {
             return;
         }
+        if (event.target.value === "") {
+            setProduct({
+                ...product,
+                price: 0,
+            });
+            return;
+        }
+
+
+        if (event.target.value.startsWith("0") && event.target.value !== "0") {
+            setProduct({
+                ...product,
+                price: event.target.value.substring(1),
+            });
+            return;
+        }
 
         setProduct({
             ...product,
             price: event.target.value,
         });
+
+
     }
 
 
