@@ -116,10 +116,22 @@ function isProductInCart(product) {
 
 
 
+function getCartAsObject()
+{
+    let cart = getCart("cart");
+    if (cart) {
+        cart = JSON.parse(cart);
+        return cart;
+    }
+    return {products: [], total: 0};
+}
+
+
 export {
     isProductInCart,
     increaseQuantityOfProductInCart, decreaseQuantityOfProductInCart, getQuantityOfProduct,
     removeProductFromCart,
     clearCart, getCartTotal,
-    getProductsFromCart
+    getProductsFromCart,
+    getCartAsObject
 };    

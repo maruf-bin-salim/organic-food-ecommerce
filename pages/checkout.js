@@ -5,13 +5,18 @@ import React, { useEffect, useState } from 'react'
 import styles from '@/styles/Checkout.module.css'
 import { useCart } from '@/hooks/useCart';
 import AuthUI from '@/components/AuthUI/AuthUI';
+import { clearCart, getCartAsObject } from '@/utils/cartManager';
+import { addOrder } from '@/database/database_functions';
+import { useRouter } from 'next/router';
 
-function Checkout() {
+function Checkout({ user }) {
 
 
 
 
     const { gotoCart } = useCart();
+    const router = useRouter();
+
 
 
 
@@ -36,6 +41,61 @@ function Checkout() {
     useEffect(() => {
         if (error) console.log(error);
     }, [error])
+
+
+    // order = {
+    //     cart: {
+    //         products: [
+    //             {
+    //                 id: 1,
+    //                 name: 'Product 1',
+    //                 price: 100,
+    //                 image: 'https://picsum.photos/200/300',
+    //                 category: 'Fruits',
+    //                 quantity: 5
+    //             }]
+    //         ,
+    //         total: 500,
+    //     },
+    //     orderID: "124",
+    //     orderStatus: "ongoing", // cancelled, ongoing, delivered
+    //     location: {
+    //         address: "123, abc street, xyz city",
+    //         zipcode: "123456",
+    //         position: { lat: 12.9716, lng: 77.5946 }
+    //     },
+    //     deliveryPersonPosition: { lat: 12.9716, lng: 77.5946 },
+    //     date: "2021-05-02",
+    //     deliveryStartTime: "2021-05-02 12:30:00",
+    //     deliveryEndTime: "2021-05-02 13:00:00",
+    //     orderedBy: "123",
+    // }
+
+
+
+    async function placeOrder() {
+
+        let cart = getCartAsObject();
+        let generatedUniqueStringID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        let order = {
+            cart: cart,
+            orderID: generatedUniqueStringID,
+            orderStatus: "ongoing", // cancelled, ongoing, delivered
+            location: {
+                address: userAddress,
+                zipcode: userZipCode,
+                position: markerPosition
+            },
+            deliveryPersonPosition: null,
+            date: new Date().toISOString().slice(0, 10),
+            deliveryStartTime: null,
+            deliveryEndTime: null,
+            orderedBy: user.uid,
+        };
+        await addOrder(order);
+        clearCart();
+        router.push("/orders");
+    }
 
 
 
@@ -99,7 +159,7 @@ function Checkout() {
 
 
             <div className={styles.confirmCheckoutButton}
-                onClick={() => { }}>
+                onClick={async () => { placeOrder() }}>
                 confirm purchase
             </div>
 
