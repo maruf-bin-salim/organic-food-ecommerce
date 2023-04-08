@@ -2,24 +2,21 @@ import { useEffect, useState } from "react";
 
 import styles from "../styles/Home.module.css";
 import Navigation from "@/components/navigation/navigation";
-import { checkIfProductExists, decreaseQuantityOfProductInCart, increaseQuantityOfProductInCart, isProductInCart, removeProductFromCart } from "@/utils/cartManager";
+import { increaseQuantityOfProductInCart, isProductInCart, removeProductFromCart } from "@/utils/cartManager";
 import { useRouter } from "next/router";
 import { useProducts } from "@/hooks/useProducts";
-import { removeProduct, upsertProduct } from "@/database/database_functions";
+import AuthUI from "@/components/AuthUI/AuthUI";
 
 
 
-export default function Home() {
+
+function Home() {
 
   const router = useRouter();
   const { products } = useProducts();
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [filter, setFilter] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
-
-
-
-
 
   const filterProducts = (products, filter) => {
     return products.filter((product) => {
@@ -37,6 +34,9 @@ export default function Home() {
   useEffect(() => {
     setFilteredProducts(products);
   }, [products]);
+
+
+
 
 
 
@@ -62,7 +62,7 @@ export default function Home() {
               onChange={(e) => { setFilter(e.target.value) }}
             />
           </div>
-          <div className={styles.search} onClick={testUpsert} />
+          <div className={styles.search} />
         </div>
       </div>
 
@@ -93,5 +93,12 @@ export default function Home() {
       </div>
 
     </div>
+  )
+}
+
+
+export default function Page() {
+  return (
+    <AuthUI InnerComponent={Home} />
   )
 }

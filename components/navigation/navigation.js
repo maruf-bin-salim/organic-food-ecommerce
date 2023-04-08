@@ -1,3 +1,4 @@
+import useFirebaseAuth from '@/hooks/useFirebaseAuth';
 import { useRouter } from 'next/router';
 import React from 'react'
 import styles from './navigation.module.css'
@@ -5,6 +6,7 @@ import styles from './navigation.module.css'
 
 const Navigation = ({ setIsNavOpen }) => {
     const router = useRouter();
+    const { logOut } = useFirebaseAuth();
 
 
     return (
@@ -42,6 +44,12 @@ const Navigation = ({ setIsNavOpen }) => {
                     onClick={() => { router.push('/orders') }}
                 >
                     <div className={styles.navLinkText}>Orders</div>
+                </div>
+
+                <div className={styles.navLink}
+                    onClick={async () => { await logOut(); router.push('/'); }}
+                >
+                    <div className={styles.navLinkText}>Log out</div>
                 </div>
             </div>
         </div>
