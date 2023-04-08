@@ -8,15 +8,25 @@ import { useShoppingListProducts } from '@/hooks/useShoppingListProducts';
 import { useCart } from '@/hooks/useCart';
 import { decreaseQuantityOfProductInCart, increaseQuantityOfProductInCart, isProductInCart, removeProductFromCart } from '@/utils/cartManager';
 import AuthUI from '@/components/AuthUI/AuthUI';
+import { addWishlistedBy, removeWishlistedBy } from '@/database/database_functions';
 
-const ShoppingList = () => {
+
+const ShoppingList = ({ user }) => {
 
 
-  const { products } = useShoppingListProducts();
+  const { products } = useShoppingListProducts(user.uid);
+
   const { gotoCart } = useCart();
   const router = useRouter();
 
   const [isNavOpen, setIsNavOpen] = useState(false);
+
+  async function handleRemoveWishlistClick(product) {
+    if (user) {
+      await removeWishlistedBy(product.id, user.uid);
+      router.reload();
+    }
+  }
 
 
   if (isNavOpen) {
@@ -40,6 +50,12 @@ const ShoppingList = () => {
         <div className={styles.cart} onClick={gotoCart} />
       </div>
 
+      {
+        products.length === 0 &&
+        <div className={styles.emptyCart}>
+          <div className={styles.emptyCartText}>Your shopping list is empty</div>
+        </div>
+      }
       <div className={styles.products}>
         {
           products.map((product) => (
@@ -50,7 +66,7 @@ const ShoppingList = () => {
               <div className={styles.productName}>{product.name}</div>
               <div className={styles.productPrice}>${product.price}</div>
               {
-                
+
                 isProductInCart(product) &&
                 <div className={styles.removeProduct} onClick={() => { removeProductFromCart(product); router.reload() }} />
               }
@@ -59,7 +75,9 @@ const ShoppingList = () => {
                 !isProductInCart(product) &&
                 <div className={styles.addProduct} onClick={() => { increaseQuantityOfProductInCart(product); router.reload() }} />
               }
-              <div className={styles.removeFromList} />
+              <div className={styles.removeFromList}
+                onClick={async () => { await handleRemoveWishlistClick(product) }}
+              />
             </div>
           ))
         }
@@ -72,6 +90,6 @@ const ShoppingList = () => {
 
 export default function Page() {
   return (
-      <AuthUI InnerComponent={ShoppingList} />
+    <AuthUI InnerComponent={ShoppingList} />
   )
 }

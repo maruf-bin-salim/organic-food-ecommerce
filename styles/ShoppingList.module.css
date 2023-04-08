@@ -119,6 +119,15 @@
     background-position: center;
 }
 
+.emptyCart{
+    font-size: 40px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #686868;
+}
+
 
 /* add a media query greater than phone size */
 @media (min-width: 600px) {

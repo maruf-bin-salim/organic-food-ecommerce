@@ -38,7 +38,7 @@ const AuthUI = ({ InnerComponent }) => {
 
     if (user) {
         return (
-            <InnerComponent />
+            <InnerComponent user={user} />
         );
     }
 

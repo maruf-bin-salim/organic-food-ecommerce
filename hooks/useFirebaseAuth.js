@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updatePassword } from 'firebase/auth';
 import { app } from '@/database/firebase';
+import { clearCart } from '@/utils/cartManager';
 
 const auth = getAuth(app);
 
@@ -43,6 +44,7 @@ const useFirebaseAuth = () => {
         setIsLoading(true);
         try {
             await signOut(auth);
+            clearCart();
             setIsLoading(false);
         } catch (error) {
             console.error(error);

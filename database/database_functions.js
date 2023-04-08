@@ -1,5 +1,6 @@
 import { app } from './firebase';
 import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, query, where } from 'firebase/firestore/lite';
+import { async } from '@firebase/util';
 const database = getFirestore(app);
 
 
@@ -58,4 +59,55 @@ async function removeProduct(productID) {
 }
 
 
-export { getAllProducts, upsertProduct, removeProduct };
+// each product has an id, name, price, category, and quantity and also an array named wishlistedBy
+// wishlistedBy is an array of user ids that have wishlisted the product
+// write a function that takesIn a product id and a user id
+// if the user id is not in the wishlistedBy array of the product, add the user id to the array
+
+async function addWishlistedBy(productID, userID) {
+    const productsCollection = collection(database, 'products');
+    const matchingProductsQuery = query(productsCollection, where('id', '==', productID));
+    const matchingProductsSnapshot = await getDocs(matchingProductsQuery);
+
+    if (matchingProductsSnapshot.size === 0) {
+        return null;
+    }
+
+    const matchingProductDoc = matchingProductsSnapshot.docs[0];
+    const productData = matchingProductDoc.data();
+    const wishlistedBy = productData.wishlistedBy;
+    if (!wishlistedBy.includes(userID)) {
+        wishlistedBy.push(userID);
+    }
+    await updateDoc(matchingProductDoc.ref, { wishlistedBy });
+    return matchingProductDoc.data();
+}
+
+async function removeWishlistedBy(productID, userID) {
+    const productsCollection = collection(database, 'products');
+    const matchingProductsQuery = query(productsCollection, where('id', '==', productID));
+    const matchingProductsSnapshot = await getDocs(matchingProductsQuery);
+
+    if (matchingProductsSnapshot.size === 0) {
+        return null;
+    }
+
+    const matchingProductDoc = matchingProductsSnapshot.docs[0];
+    const productData = matchingProductDoc.data();
+    const wishlistedBy = productData.wishlistedBy;
+    if (wishlistedBy.includes(userID)) {
+        wishlistedBy.splice(wishlistedBy.indexOf(userID), 1);
+    }
+    await updateDoc(matchingProductDoc.ref, { wishlistedBy });
+    return matchingProductDoc.data();
+}
+
+// a function that takes in a user id and returns all products that the user has wishlisted
+async function getWishlistedProducts(userID) {
+    const productsCollection = collection(database, 'products');
+    const matchingProductsQuery = query(productsCollection, where('wishlistedBy', 'array-contains', userID));
+    const matchingProductsSnapshot = await getDocs(matchingProductsQuery);
+    return matchingProductsSnapshot.docs.map(documents => documents.data());
+}
+
+export { getAllProducts, upsertProduct, removeProduct, addWishlistedBy, removeWishlistedBy, getWishlistedProducts };

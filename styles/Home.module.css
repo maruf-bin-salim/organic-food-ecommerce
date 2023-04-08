@@ -133,6 +133,17 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+.removeWishlistProduct
+{
+    height: 30px;
+    width: 30px;
+    margin-left: 10px;
+    cursor: pointer;
+    background: url('/remove-wishlist.svg');
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
 
 
 /* add a media query greater than phone size */

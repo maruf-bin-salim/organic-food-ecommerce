@@ -9,9 +9,11 @@ import filter_types from '@/data/store_filter_types';
 import { useCart } from '@/hooks/useCart';
 import { decreaseQuantityOfProductInCart, increaseQuantityOfProductInCart, isProductInCart, removeProductFromCart } from '@/utils/cartManager';
 import AuthUI from '@/components/AuthUI/AuthUI';
+import { addWishlistedBy, removeWishlistedBy } from '@/database/database_functions';
 
 
-const Store = () => {
+const Store = ({ user }) => {
+    
     const { products } = useProducts();
     const { gotoCart } = useCart();
 
@@ -20,6 +22,23 @@ const Store = () => {
     const [isNavOpen, setIsNavOpen] = useState(false);
     const [filter, setFilter] = useState(filter_types.all);
     const [filteredProducts, setFilteredProducts] = useState([]);
+
+
+    async function handleWishlistClick(product) {
+        if (user) {
+            await addWishlistedBy(product.id, user.uid);
+            router.reload();
+        }
+    }
+
+    async function handleRemoveWishlistClick(product) {
+        if (user) {
+            await removeWishlistedBy(product.id, user.uid);
+            router.reload();
+        }
+    }
+
+
 
 
 
@@ -65,6 +84,7 @@ const Store = () => {
                             <div className={styles.productName}>{product.name}</div>
                             <div className={styles.productPrice}>${product.price}</div>
                             {
+                                
                                 isProductInCart(product) &&
                                 <div className={styles.removeProduct} onClick={() => { removeProductFromCart(product); router.reload() }} />
                             }
@@ -74,7 +94,19 @@ const Store = () => {
                                 <div className={styles.addProduct} onClick={() => { increaseQuantityOfProductInCart(product); router.reload() }} />
                             }
 
-                            <div className={styles.wishlistProduct} />
+                            {
+                                !product.wishlistedBy?.includes(user?.uid) &&
+                                <div className={styles.wishlistProduct}
+                                    onClick={async () => { await handleWishlistClick(product) }}
+                                />
+                            }
+
+                            {
+                                product.wishlistedBy?.includes(user?.uid) &&
+                                <div className={styles.removeWishlistProduct}
+                                    onClick={async () => { await handleRemoveWishlistClick(product) }}
+                                />
+                            }
                         </div>
                     ))
                 }

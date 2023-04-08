@@ -6,11 +6,12 @@ import { increaseQuantityOfProductInCart, isProductInCart, removeProductFromCart
 import { useRouter } from "next/router";
 import { useProducts } from "@/hooks/useProducts";
 import AuthUI from "@/components/AuthUI/AuthUI";
+import { addWishlistedBy, removeWishlistedBy } from "@/database/database_functions";
 
 
 
 
-function Home() {
+function Home({ user }) {
 
   const router = useRouter();
   const { products } = useProducts();
@@ -34,6 +35,22 @@ function Home() {
   useEffect(() => {
     setFilteredProducts(products);
   }, [products]);
+
+
+  async function handleWishlistClick(product) {
+    if (user) {
+      await addWishlistedBy(product.id, user.uid);
+      router.reload();
+    }
+  }
+
+  async function handleRemoveWishlistClick(product) {
+    if (user) {
+      await removeWishlistedBy(product.id, user.uid);
+      router.reload();
+    }
+  }
+
 
 
 
@@ -86,7 +103,23 @@ function Home() {
                 <div className={styles.addProduct} onClick={() => { increaseQuantityOfProductInCart(product); router.reload() }} />
               }
 
-              <div className={styles.wishlistProduct} />
+              {
+                !product.wishlistedBy?.includes(user?.uid) &&
+                <div className={styles.wishlistProduct}
+                  onClick={async () => { await handleWishlistClick(product) }}
+                />
+              }
+
+              {
+                product.wishlistedBy?.includes(user?.uid) &&
+                <div className={styles.removeWishlistProduct}
+                  onClick={async () => { await handleRemoveWishlistClick(product) }}
+                />
+              }
+
+
+
+
             </div>
           ))
         }
