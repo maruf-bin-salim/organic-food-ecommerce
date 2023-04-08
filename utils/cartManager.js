@@ -24,47 +24,67 @@ function increaseQuantityOfProductInCart(product) {
         if (checkIfProductExists(product, cart.products)) {
             let index = getIndexOfProduct(product, cart.products);
             cart.products[index].quantity += 1;
-            cart.total += product.price;
+            cart.total += parseFloat(product.price);
+            cart.total = parseFloat(cart.total.toFixed(2));
             setCart("cart", JSON.stringify(cart));
         }
         else {
             cart.products.push({ ...product, quantity: 1 });
-            cart.total += product.price;
+            cart.total += parseFloat(product.price);
+            cart.total = parseFloat(cart.total.toFixed(2));
             setCart("cart", JSON.stringify(cart));
         }
     }
     else {
-        setCart("cart", JSON.stringify({ products: [{ ...product, quantity: 1 }], total: product.price }));
+        setCart("cart", JSON.stringify({ products: [{ ...product, quantity: 1 }], total: parseFloat(product.price) }));
     }
 }
 
 function decreaseQuantityOfProductInCart(product) {
     let cart = getCart("cart");
+    let shouldClearCart = false;
     if (cart) {
         cart = JSON.parse(cart);
         if (checkIfProductExists(product, cart.products)) {
             let index = getIndexOfProduct(product, cart.products);
             if (cart.products[index].quantity === 1) {
                 cart.products.splice(index, 1);
+                if (cart.products.length === 0) {
+                    shouldClearCart = true;
+                }
             } else {
                 cart.products[index].quantity -= 1;
             }
-            cart.total -= product.price;
+            cart.total -= parseFloat(product.price);
+            cart.total = parseFloat(cart.total.toFixed(2));
             setCart("cart", JSON.stringify(cart));
         }
+    }
+
+    if (shouldClearCart) {
+        clearCart();
     }
 }
 
 function removeProductFromCart(product) {
     let cart = getCart("cart");
+    let shouldClearCart = false;
     if (cart) {
         cart = JSON.parse(cart);
         if (checkIfProductExists(product, cart.products)) {
             let index = getIndexOfProduct(product, cart.products);
             cart.products.splice(index, 1);
-            cart.total -= product.price * product.quantity;
+            if (cart.products.length === 0) {
+                shouldClearCart = true;
+            }
+            cart.total -= parseFloat(product.price) * product.quantity;
+            cart.total = parseFloat(cart.total.toFixed(2));
             setCart("cart", JSON.stringify(cart));
         }
+    }
+
+    if (shouldClearCart) {
+        clearCart();
     }
 }
 
@@ -90,6 +110,7 @@ function getCartTotal() {
     let cart = getCart("cart");
     if (cart) {
         cart = JSON.parse(cart);
+        cart.total = parseFloat(cart.total.toFixed(2));
         return cart.total;
     }
     return 0;
@@ -116,14 +137,13 @@ function isProductInCart(product) {
 
 
 
-function getCartAsObject()
-{
+function getCartAsObject() {
     let cart = getCart("cart");
     if (cart) {
         cart = JSON.parse(cart);
         return cart;
     }
-    return {products: [], total: 0};
+    return { products: [], total: 0 };
 }
 
 

@@ -80,7 +80,7 @@ function Checkout({ user }) {
         let order = {
             cart: cart,
             orderID: generatedUniqueStringID,
-            orderStatus: "ongoing", // cancelled, ongoing, delivered
+            orderStatus: "ongoing", // cancelled, ongoing, delivery_started, recieved
             location: {
                 address: userAddress,
                 zipcode: userZipCode,
@@ -91,6 +91,7 @@ function Checkout({ user }) {
             deliveryStartTime: null,
             deliveryEndTime: null,
             orderedBy: user.uid,
+            delivery_person: null,
         };
         await addOrder(order);
         clearCart();

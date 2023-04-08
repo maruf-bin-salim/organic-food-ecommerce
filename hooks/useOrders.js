@@ -1,18 +1,18 @@
+import { getOrdersByUser } from "@/database/database_functions"
 import { useEffect, useState } from "react"
 
-const { orders } = require("@/data/orders")
 
-function useOrders() {
+function useOrders(userID) {
     const [fetchedOrders, setOrders] = useState([])
     
 
     useEffect(() => {
         const fetchOrders = async () => {
-
-            setOrders(orders)
+            let orders = await getOrdersByUser(userID);
+            setOrders(orders);
         }
         fetchOrders()
-    }, [])
+    }, [userID])
 
     return fetchedOrders;
 }

@@ -7,11 +7,11 @@ import { useRouter } from 'next/router';
 import AuthUI from '@/components/AuthUI/AuthUI';
 
 
-const Orders = () => {
+const Orders = ({ user }) => {
 
     const [isNavOpen, setIsNavOpen] = useState(false);
 
-    let orders = useOrders();
+    let orders = useOrders(user.uid);
     let { gotoCart } = useCart();
     const router = useRouter();
 
