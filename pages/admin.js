@@ -1,4 +1,220 @@
+import { useProducts } from '@/hooks/useProducts';
 import React, { useState, useEffect } from 'react';
+import styles from '@/styles/Admin.module.css';
+
+function EditableProduct({ product: passedProduct }) {
+
+    const [product, setProduct] = useState(passedProduct);
+
+    function handleNameChange(event) {
+        setProduct({
+            ...product,
+            name: event.target.value,
+        });
+    }
+
+    function handlePriceChange(event) {
+
+        if (isNaN(event.target.value)) {
+            return;
+        }
+
+        setProduct({
+            ...product,
+            price: event.target.value,
+        });
+    }
+
+
+
+    function handleImageChange(event) {
+        setProduct({
+            ...product,
+            image: event.target.value,
+        });
+    }
+
+    function handleCategoryChange(event) {
+        setProduct({
+            ...product,
+            category: event.target.value,
+        });
+    }
+
+
+    return (
+        <div className={styles.product} key={product.id}>
+            <div className={styles.productImage}>
+                <img src={product.image} alt={product.name} />
+            </div>
+            <div className={styles.productName}>{product.name} ({product?.category})</div>
+            <div className={styles.productPrice}>${product.price}</div>
+            <div className={styles.inputs}>
+                <label>
+                    Name
+                </label>
+                <input type="text" value={product.name} onChange={handleNameChange} />
+                <label>
+                    Price
+                </label>
+                <input type="text" value={product.price} onChange={handlePriceChange} />
+                <label>
+                    Image
+                </label>
+                <input type="text" value={product.image} onChange={handleImageChange} />
+                <label>
+                    Category
+                </label>
+                <input type="text" value={product.category} onChange={handleCategoryChange} />
+            </div>
+
+            <div className={styles.buttons}>
+                <button className={styles.saveButton}>Save</button>
+                <button className={styles.deleteButton}>Delete</button>
+            </div>
+        </div>
+
+    )
+
+}
+
+function AddNewProduct() {
+
+    const [product, setProduct] = useState({});
+
+    useEffect(() => {
+
+        let uniqueIDOfString = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
+        setProduct({
+            id: uniqueIDOfString,
+            name: "",
+            price: "",
+            image: "",
+            category: "",
+            wishlistedBy: [],
+        })
+    }, [])
+
+
+    function handleNameChange(event) {
+        setProduct({
+            ...product,
+            name: event.target.value,
+        });
+    }
+
+
+    function handlePriceChange(event) {
+
+        if (isNaN(event.target.value)) {
+            return;
+        }
+
+        setProduct({
+            ...product,
+            price: event.target.value,
+        });
+    }
+
+
+    function handleImageChange(event) {
+        setProduct({
+            ...product,
+            image: event.target.value,
+        });
+    }
+
+    function handleCategoryChange(event) {
+        setProduct({
+            ...product,
+            category: event.target.value,
+        });
+    }
+
+    async function handleSave() {
+        console.log(product);
+    }
+
+    return (
+        <div
+            style={{
+                marginBottom: '40px',
+
+            }}
+        >
+            <h1
+                style={{
+                    textAlign: 'center',
+                    width: 'max-content',
+                    margin: '0 auto'
+                }}
+            >
+                Add New Product</h1>
+            <div className={styles.product} key={product.id}>
+                <div className={styles.productImage}>
+                    <img src={product.image} alt={product.name} />
+                </div>
+                <div className={styles.productName}>{product.name} {product.category ? `(${product.category})` : ""}</div>
+                <div className={styles.productPrice}>${product.price}</div>
+                <div className={styles.inputs}>
+                    <label>
+                        Name
+                    </label>
+                    <input type="text" value={product.name} onChange={handleNameChange} />
+                    <label>
+                        Price
+                    </label>
+                    <input type="text" value={product.price} onChange={handlePriceChange} />
+                    <label>
+                        Image
+                    </label>
+                    <input type="text" value={product.image} onChange={handleImageChange} />
+                    <label>
+                        Category
+                    </label>
+                    <input type="text" value={product.category} onChange={handleCategoryChange} />
+                </div>
+                <div className={styles.buttons}>
+                    <button className={styles.saveButton} onClick={handleSave}>Save</button>
+                </div>
+            </div>
+
+            <h1
+                style={{
+                    textAlign: 'center',
+                    width: 'max-content',
+                    margin: '30px auto'
+                }}
+            >
+                Update Existing Products</h1>
+        </div>
+
+    )
+
+}
+
+function ProductManager({ logout }) {
+
+    const { products } = useProducts();
+
+    return (
+        <div className={styles.page}>
+            <div className={styles.logout} onClick={logout}>Log Out</div>
+            <div className={styles.products}>
+                <AddNewProduct />
+                {
+                    products?.map((product) => (
+                        <EditableProduct key={product.id} product={product} />
+                    ))
+                }
+            </div>
+
+        </div>
+    );
+}
+
+
 
 function AdminPage() {
     const [password, setPassword] = useState('');
@@ -30,13 +246,10 @@ function AdminPage() {
         setIsLoggedIn(false);
     };
 
-    
+
     if (isLoggedIn) {
         return (
-            <div>
-                <p>Hello, admin!</p>
-                <button onClick={handleLogoutButtonClick}>Logout</button>
-            </div>
+            <ProductManager logout={handleLogoutButtonClick} />
         );
     }
 

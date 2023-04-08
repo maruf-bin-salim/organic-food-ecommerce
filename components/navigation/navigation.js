@@ -6,7 +6,7 @@ import styles from './navigation.module.css'
 
 const Navigation = ({ setIsNavOpen }) => {
     const router = useRouter();
-    const { logOut } = useFirebaseAuth();
+    const { logOut, user } = useFirebaseAuth();
 
 
     return (
@@ -15,7 +15,21 @@ const Navigation = ({ setIsNavOpen }) => {
                 <div className={styles.navClose} onClick={() => { setIsNavOpen(false) }} />
             </div>
 
+
+
+
             <div className={styles.navLinks}>
+
+                <div className={styles.navLink}
+                    style={{
+                        backgroundColor: 'white',
+                        color: 'black',
+                        marginBottom: '10px',
+                    }}
+                >
+                    <div className={styles.navLinkText}>{user?.email}</div>
+                </div>
+
                 <div className={styles.navLink}
                     onClick={() => { router.push('/') }}
                 >
