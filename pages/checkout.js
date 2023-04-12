@@ -25,6 +25,8 @@ function Checkout({ user }) {
     let [userAddress, setUserAddress] = useState(address);
     let [userZipCode, setUserZipCode] = useState(zipCode);
     let [userAddressLabel, setUserAddressLabel] = useState("Home");
+    let [method, setMethod] = useState("Cash On Delivery");
+
 
     useEffect(() => {
         if (position) setMarkerPosition(position);
@@ -75,23 +77,24 @@ function Checkout({ user }) {
 
     async function placeOrder() {
 
+        let currentDateTimeString = new Date().toLocaleString();
         let cart = getCartAsObject();
         let generatedUniqueStringID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         let order = {
             cart: cart,
             orderID: generatedUniqueStringID,
-            orderStatus: "ongoing", // cancelled, ongoing, delivery_started, recieved
+            orderStatus: "ongoing",
             location: {
                 address: userAddress,
                 zipcode: userZipCode,
                 position: markerPosition
             },
             deliveryPersonPosition: null,
-            date: new Date().toISOString().slice(0, 10),
+            date: currentDateTimeString,
             deliveryStartTime: null,
             deliveryEndTime: null,
             orderedBy: user.uid,
-            delivery_person: null,
+            deliveryMethod: method,
         };
         await addOrder(order);
         clearCart();
@@ -144,6 +147,18 @@ function Checkout({ user }) {
                             placeholder="Label"
                             value={userAddressLabel ? userAddressLabel : ""}
                             onChange={(e) => { setUserAddressLabel(e.target.value) }}
+                        />
+                    </div>
+
+                    <div className={styles.addressInput}>
+                        <p className={styles.inputLabel}>
+                            Paying Method (visa / Cash On Delivery)
+                        </p>
+                        <input
+                            type="text"
+                            placeholder="cahs on delivery / visa"
+                            value={method ? method : ""}
+                            onChange={(e) => { setMethod(e.target.value) }}
                         />
                     </div>
                 </div>

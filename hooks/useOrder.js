@@ -1,21 +1,15 @@
+import { getOrder } from "@/database/database_functions"
 import { useEffect, useState } from "react"
 
-const { orders } = require("@/data/orders")
+
 
 function useOrder(orderID) {
-    const [fetchedOrder, setOrder] = useState(null)
-
-
+    const [fetchedOrder, setOrder] = useState([])
     useEffect(() => {
         const fetchOrder = async () => {
             if (!orderID) return;
-            let filteredOrders = orders.filter(order => order.orderID === orderID);
-            if (filteredOrders.length === 0) {
-                setOrder(null);
-            }
-            else {
-                setOrder(filteredOrders[0]);
-            }
+            const order = await getOrder(orderID)
+            setOrder(order);
         }
         fetchOrder()
     }, [orderID])

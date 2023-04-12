@@ -24,7 +24,7 @@ const useFirebaseAuth = () => {
             await signInWithEmailAndPassword(auth, email, password);
             setIsLoading(false);
         } catch (error) {
-            setError("Incorrect password or email or user doesn't exist.");
+            setError(error.message);
             setIsLoading(false);
         }
     };
@@ -35,7 +35,8 @@ const useFirebaseAuth = () => {
             await createUserWithEmailAndPassword(auth, email, password);
             setIsLoading(false);
         } catch (error) {
-            setError("User already exists with the email.");
+            console.log("error", error);
+            setError(error.message);
             setIsLoading(false);
         }
     };

@@ -1,4 +1,5 @@
 import AuthUI from '@/components/AuthUI/AuthUI';
+import TrackMap from '@/components/TrackMap';
 import useOrder from '@/hooks/useOrder';
 import { Router, useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -46,6 +47,7 @@ function ProductTable({ products, totalPrice }) {
     )
 }
 
+
 const TopBar = ({ orderID }) => {
     const router = useRouter();
     return (
@@ -56,21 +58,110 @@ const TopBar = ({ orderID }) => {
     )
 }
 
-const Items = () => {
+const PageTypeSetter = ({ order, pageType, setPageType }) => {
+    if (!order) return null;
+
+    function isSelected(thisType) {
+        return pageType === thisType ? '4px solid white' : 'none';
+    }
+
+
+
     return (
-        <div>Items</div>
+
+
+        <div className={styles.setter}>
+            <div
+                className={styles.type}
+                style={{ borderBottom: `${isSelected(PAGE_TYPE.ITEMS)}` }}
+                onClick={() => { setPageType(PAGE_TYPE.ITEMS) }}
+            >
+                Items
+            </div>
+
+            <div
+                className={styles.type}
+                style={{ borderBottom: `${isSelected(PAGE_TYPE.TRACK)}` }}
+                onClick={() => { setPageType(PAGE_TYPE.TRACK) }}
+            >
+                Track
+            </div>
+
+            <div
+                className={styles.type}
+                style={{ borderBottom: `${isSelected(PAGE_TYPE.DETAILS)}` }}
+                onClick={() => { setPageType(PAGE_TYPE.DETAILS) }}
+            >
+                Details
+            </div>
+        </div>
+    )
+
+
+}
+const Items = ({ order }) => {
+    return (
+        <ProductTable products={order?.cart?.products} totalPrice={order?.cart?.total} />
     )
 }
 
-const Track = () => {
+const Track = ({ order }) => {
+
+    if (!order?.location?.position) return null;
+    if (!order?.deliveryPersonPosition) return null;
     return (
-        <div>Track</div>
+        <div style={{
+            display: 'flex',
+            flex: "1",
+            flexDirection: "column",
+        }}>
+            <TrackMap
+
+                deliveryPosition={order?.location?.position}
+                deliveryManPosition={order?.deliveryPersonPosition}
+                address={order?.location?.address}
+
+            />
+        </div>
     )
 }
 
-const Details = () => {
+const Details = ({ order }) => {
     return (
-        <div>Details</div>
+        <div
+            className={styles.details}
+        >
+            {
+                order?.orderStatus &&
+                <div className={styles.detail}>
+                    The order status is: {order.orderStatus}
+                </div>
+            }
+            {
+                order?.date &&
+                <div className={styles.detail}>
+                    You placed the order in: {order.date}
+                </div>
+            }
+            {
+                order?.deliveryMethod &&
+                <div className={styles.detail}>
+                    Your paying method is : {order.deliveryMethod}
+                </div>
+            }
+            {
+                order?.deliveryStartTime &&
+                <div className={styles.detail}>
+                    The delivery started at : {order.deliveryStartTime}
+                </div>
+            }
+            {
+                order?.deliveryEndTime &&
+                <div className={styles.detail}>
+                    The delivery ended at : {order.deliveryEndTime}
+                </div>
+            }
+        </div>
     )
 }
 
@@ -97,8 +188,8 @@ const Order = () => {
         return (
             <div className={styles.page}>
                 <TopBar orderID={orderID} />
-                <Items />
-                <ProductTable products={order?.cart?.products} totalPrice={order?.cart?.total} />
+                <PageTypeSetter order={order} pageType={pageType} setPageType={setPageType} />
+                <Items order={order} />
             </div>
         )
     }
@@ -107,7 +198,8 @@ const Order = () => {
         return (
             <div className={styles.page}>
                 <TopBar orderID={orderID} />
-                <Track />
+                <PageTypeSetter order={order} pageType={pageType} setPageType={setPageType} />
+                <Track order={order} />
             </div>
 
 
@@ -118,7 +210,8 @@ const Order = () => {
         return (
             <div className={styles.page}>
                 <TopBar orderID={orderID} />
-                <Details />
+                <PageTypeSetter order={order} pageType={pageType} setPageType={setPageType} />
+                <Details order={order} />
             </div>
         )
     }

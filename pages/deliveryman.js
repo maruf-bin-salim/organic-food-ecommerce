@@ -1,31 +1,14 @@
-import React, { useState } from 'react'
-import useOrders from '@/hooks/useOrders';
-import styles from '../styles/Orders.module.css'
-import Navigation from '@/components/navigation/navigation';
-import { useCart } from '@/hooks/useCart';
+import useAllOrders from '@/hooks/useAllOrders';
+import React from 'react'
+import styles from '@/styles/Orders.module.css'
 import { useRouter } from 'next/router';
-import AuthUI from '@/components/AuthUI/AuthUI';
+
+const DeliveryMan = () => {
 
 
-const Orders = ({ user }) => {
-
-    const [isNavOpen, setIsNavOpen] = useState(false);
-
-    let orders = useOrders(user.uid);
-    let { gotoCart } = useCart();
+    let orders = useAllOrders();
     const router = useRouter();
 
-
-
-
-
-    if (isNavOpen) {
-        return (
-            <Navigation
-                setIsNavOpen={setIsNavOpen}
-            />
-        )
-    }
 
     function getStyle(order) {
         if (order.orderStatus === "ongoing") {
@@ -42,19 +25,11 @@ const Orders = ({ user }) => {
         }
     }
 
-
     return (
         <div className={styles.page}>
-
-            <div className={styles.topBar}>
-                <div className={styles.hamburger} onClick={() => { setIsNavOpen(true) }} />
-                <div className={styles.pageTitle}> Orders </div>
-                <div className={styles.cart} onClick={gotoCart} />
-            </div>
             <div className={styles.orders}>
                 {
                     orders.map((order, index) => {
-
                         return (
                             <div key={index} className={styles.order}>
                                 <div className={styles.orderHeader}>
@@ -65,12 +40,16 @@ const Orders = ({ user }) => {
                                 <div className={styles.orderAddress}>{`Address: ${order.location.address}`}</div>
                                 <div className={styles.orderTotal}>{`Total : ${order.cart.total}$`}</div>
 
-                                <div className={styles.goToOrder} onClick={() => {
-                                    let route = "order" + "/" + order.orderID;
-                                    router.push(route);
-                                }}>
-                                    {"Go To Order"}
-                                </div>
+                                {
+
+                                    (order.orderStatus === "ongoing" || order.orderStatus === "delivery_started") &&
+                                    <div className={styles.goToOrder} onClick={() => {
+                                        let route = "deliveryman" + "/" + order.orderID;
+                                        router.push(route);
+                                    }}>
+                                        {"Go To Order"}
+                                    </div>
+                                }
                             </div>
                         )
 
@@ -82,10 +61,4 @@ const Orders = ({ user }) => {
     )
 }
 
-
-export default function Page() {
-    return (
-        <AuthUI InnerComponent={Orders} />
-    )
-}
-
+export default DeliveryMan

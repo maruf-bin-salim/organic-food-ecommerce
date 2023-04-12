@@ -146,6 +146,14 @@ async function addOrder(order) {
     await addDoc(ordersCollection, order);
 }
 
+// write a function that returns all the orders from the orders collection in the database
+async function getAllOrders() {
+    const ordersCollection = collection(database, 'orders');
+    const ordersSnapshot = await getDocs(ordersCollection);
+    return ordersSnapshot.docs.map(documents => documents.data());
+}
+
+
 // write a function that takes in an order id and returns the order from the orders collection in the database
 async function getOrder(orderID) {
     const ordersCollection = collection(database, 'orders');
@@ -222,5 +230,5 @@ async function updateDeliveryEndTime(orderID, endTime) {
 
 export {
     getAllProducts, upsertProduct, removeProduct, addWishlistedBy, removeWishlistedBy, getWishlistedProducts,
-    addOrder, getOrder, getOrdersByUser, updateOrderStatus, updateDeliveryPersonPosition, updateDeliveryStartTime, updateDeliveryEndTime
+    addOrder, getOrder, getOrdersByUser, getAllOrders, updateOrderStatus, updateDeliveryPersonPosition, updateDeliveryStartTime, updateDeliveryEndTime
 };
