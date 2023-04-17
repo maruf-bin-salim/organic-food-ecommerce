@@ -8,10 +8,7 @@
 
 .main {
     height: 30vh;
-    background: url('/home-bg.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    background-color: #73b651;
 }
 
 .topBar {
@@ -22,6 +19,72 @@
     padding: 20px;
     height: max-content;
 
+}
+
+
+.infoBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    padding: 20px;
+    height: max-content;
+
+}
+
+.languageSelector {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    border: 2px solid white;
+    border-radius: 10px;
+}
+
+.languageSelectorOption {
+    cursor: pointer;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.selectedIcon {
+    background-color: rebeccapurple;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+
+    background: url('/default_user_image.png');
+    background-size: 35px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+.languageSelectorOption:nth-of-type(1) {
+    border-right: 2px solid white;
+}
+
+.user {
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.userImage {
+    background-color: rebeccapurple;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+
+    background: url('/default_user_image.png');
+    background-size: 35px;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .hamburger,
@@ -113,6 +176,7 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+
 .removeProduct {
     height: 40px;
     width: 40px;
@@ -134,8 +198,8 @@
     background-repeat: no-repeat;
     background-position: center;
 }
-.removeWishlistProduct
-{
+
+.removeWishlistProduct {
     height: 30px;
     width: 30px;
     margin-left: 10px;

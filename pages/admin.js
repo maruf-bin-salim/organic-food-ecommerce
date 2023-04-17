@@ -103,6 +103,16 @@ function EditableProduct({ product: passedProduct, setIsLoading }) {
                     Category
                 </label>
                 <input type="text" value={product.category} onChange={handleCategoryChange} />
+
+                <label>
+                    Description
+                </label>
+                <input value={product.description} onChange={(event) => {
+                    setProduct({
+                        ...product,
+                        description: event.target.value,
+                    });
+                }} />
             </div>
 
             <div className={styles.buttons}>
@@ -234,6 +244,15 @@ function AddNewProduct({ setIsLoading }) {
                         Category
                     </label>
                     <input type="text" value={product.category} onChange={handleCategoryChange} />
+                    <label>
+                        Description
+                    </label>
+                    <input value={product.description} onChange={(event) => {
+                        setProduct({
+                            ...product,
+                            description: event.target.value,
+                        });
+                    }} />
                 </div>
                 <div className={styles.buttons}>
                     <button className={styles.saveButton} onClick={handleSave}>Save</button>

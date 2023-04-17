@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
 import styles from "../styles/Home.module.css";
-import Navigation from "@/components/navigation/navigation";
 import { increaseQuantityOfProductInCart, isProductInCart, removeProductFromCart } from "@/utils/cartManager";
 import { useRouter } from "next/router";
 import { useProducts } from "@/hooks/useProducts";
@@ -10,14 +9,19 @@ import { addWishlistedBy, removeWishlistedBy } from "@/database/database_functio
 
 
 
+const SUPPORTED_LANGUAGES = {
+  en: "English",
+  ar: "العربية",
+};
+
 
 function Home({ user }) {
 
   const router = useRouter();
   const { products } = useProducts();
-  const [isNavOpen, setIsNavOpen] = useState(false);
   const [filter, setFilter] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [selectedLanguage, setSelectedLanguage] = useState(SUPPORTED_LANGUAGES.en);
 
   const filterProducts = (products, filter) => {
     return products.filter((product) => {
@@ -57,14 +61,6 @@ function Home({ user }) {
 
 
 
-  if (isNavOpen) {
-    return (
-      <Navigation
-        setIsNavOpen={setIsNavOpen}
-      />
-    )
-  }
-
 
 
 
@@ -72,8 +68,34 @@ function Home({ user }) {
   return (
     <div className={styles.page}>
       <div className={styles.main}>
+        <div
+          className={styles.infoBar}>
+          <div className={styles.languageSelector}>
+
+            <div className={styles.languageSelectorOption}>
+              <div className={styles.selectedIcon} />
+              <p>{SUPPORTED_LANGUAGES.en}</p>
+            </div>
+
+            <div className={styles.languageSelectorOption}>
+              <div className={styles.selectedIcon} />
+              <p>{SUPPORTED_LANGUAGES.ar}</p>
+            </div>
+
+
+          </div>
+
+          <div className={styles.user}>
+            <div className={styles.userImage} />
+            <p>
+              {user?.email}
+            </p>
+          </div>
+        </div>
         <div className={styles.topBar}>
-          <div className={styles.hamburger} onClick={() => { setIsNavOpen(true) }} />
+          <div>
+            something
+          </div>
           <div className={styles.searchBarContainer}>
             <input className={styles.searchBar} placeholder="Search by name or category"
               onChange={(e) => { setFilter(e.target.value) }}
