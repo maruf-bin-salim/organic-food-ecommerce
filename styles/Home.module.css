@@ -7,13 +7,16 @@
 }
 
 .main {
-    height: 30vh;
+    height: max-content;
+    min-height: 45vh;
     background-color: #73b651;
+    position: relative;
+    min-width: max-content;
 }
 
 .topBar {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     color: white;
     padding: 20px;
@@ -29,6 +32,8 @@
     color: white;
     padding: 20px;
     height: max-content;
+    flex-direction: column;
+    gap: 10px;
 
 }
 
@@ -55,7 +60,9 @@
     width: 40px;
     border-radius: 50%;
 
-    background: url('/default_user_image.png');
+    filter: invert(100%);
+    background: url('/languages.png');
+
     background-size: 35px;
     background-repeat: no-repeat;
     background-position: center;
@@ -88,7 +95,8 @@
 }
 
 .hamburger,
-.search {
+.search,
+.cart {
     height: 40px;
     width: 40px;
     cursor: pointer;
@@ -108,9 +116,29 @@
     background-position: center;
 }
 
+.cart {
+    background: url('/cart.svg');
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.logo {
+    margin-top: 10px;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    background: url('/logo.jpg');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #F5F5F5;
+}
+
 .searchBarContainer {
-    flex: 1;
     display: flex;
+    min-width: 40vw;
     justify-content: center;
     align-items: center;
 }
@@ -123,12 +151,120 @@
     border-radius: 10px;
 }
 
-.products {
-    flex: 1;
-    overflow-y: scroll;
-    padding: 10px;
-    padding-bottom: 30px;
+.horizontalNavBar {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    color: white;
+    padding: 20px;
+    width: 100%;
+    height: max-content;
+    text-decoration: underline;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
+
+.navOption {
+    cursor: pointer;
+}
+
+.sections {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    min-height: 60vh;
+}
+
+
+
+.topSection {
+    grid-column: span 2;
+    color: white;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: bold;
+    background: linear-gradient(to bottom, #1c1c1c80, #1c1c1c80), url('/all.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-decoration: none;
+}
+
+.topSection:hover {
+    text-decoration: none;
+}
+
+.topSectionLogo {
+    height: 100px;
+    width: 100px;
+    margin: auto;
+    border-radius: 50%;
+    cursor: pointer;
+    background: url('/logo.jpg');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #F5F5F5;
+}
+
+.topSection p {
+    font-size: medium;
+}
+
+.leftSection {
+    grid-column: span 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: xx-large;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(to bottom, #1c1c1c80, #1c1c1c80), url('/fruits.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.rightSection {
+    grid-column: span 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: xx-large;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(to bottom, #1c1c1c80, #1c1c1c80), url('/veg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.leftSection:hover , .rightSection:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.topSection:hover h3 {
+    text-decoration: underline;
+}
+.topSection:hover {
+    cursor: pointer;
+}
+
+.logo {
+    display: none;
+}
+
+.products {
+    height: 60vh;
+}
+
 
 .product {
     margin-top: 10px;
@@ -210,23 +346,41 @@
     background-position: center;
 }
 
-
 /* add a media query greater than phone size */
 @media (min-width: 600px) {
 
     .main {
-        height: 45vh;
+        height: 30vh;
+    }
+
+    .topBar {
+        flex-direction: row;
+    }
+
+    .searchBarContainer {
+        min-width: 60vw;
     }
 
     .searchBar {
-        width: 50%;
+        width: 80%;
         margin-left: auto;
         margin-right: 10px;
     }
 
-    .products {
+    .logo {
+        height: 100px;
+        width: 100px;
+        margin: 0;
+        display: block;
+    }
+
+    /* .sections {
         padding-left: 20%;
         padding-right: 20%;
+    } */
+
+    .infoBar {
+        flex-direction: row;
     }
 
 }

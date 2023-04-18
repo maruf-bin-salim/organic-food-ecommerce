@@ -14,6 +14,68 @@ const SUPPORTED_LANGUAGES = {
   ar: "العربية",
 };
 
+function HorizontalNavBar({ selectedLanguage }) {
+
+  const router = useRouter();
+
+  return (
+    <div className={styles.horizontalNavBar}>
+
+      <div className={styles.navOption}
+        onClick={() => { router.push('/') }}>
+        {
+          selectedLanguage === SUPPORTED_LANGUAGES.en ? "my cart" : "2"
+        }
+      </div>
+
+      <div className={styles.navOption}
+        onClick={() => { router.push('/') }}>
+        {
+          selectedLanguage === SUPPORTED_LANGUAGES.en ? "shopping list" : "2"
+        }
+      </div>
+
+
+      <div className={styles.navOption}
+        onClick={() => { router.push('/') }}>
+        {
+          selectedLanguage === SUPPORTED_LANGUAGES.en ? "saved list" : "2"
+        }
+      </div>
+
+
+      <div className={styles.navOption}
+        onClick={() => { router.push('/') }}>
+        {
+          selectedLanguage === SUPPORTED_LANGUAGES.en ? "offers" : "2"
+        }
+      </div>
+
+      <div className={styles.navOption}
+        onClick={() => { router.push('/') }}>
+        {
+          selectedLanguage === SUPPORTED_LANGUAGES.en ? "fruits" : "2"
+        }
+      </div>
+
+      <div className={styles.navOption}
+        onClick={() => { router.push('/') }}>
+        {
+          selectedLanguage === SUPPORTED_LANGUAGES.en ? "vegetables" : "2"
+        }
+      </div>
+
+      <div className={styles.navOption}
+        onClick={() => { router.push('/') }}>
+        {
+          selectedLanguage === SUPPORTED_LANGUAGES.en ? "all products" : "2"
+        }
+      </div>
+
+    </div>
+  )
+}
+
 
 function Home({ user }) {
 
@@ -72,13 +134,22 @@ function Home({ user }) {
           className={styles.infoBar}>
           <div className={styles.languageSelector}>
 
-            <div className={styles.languageSelectorOption}>
-              <div className={styles.selectedIcon} />
+            <div className={styles.languageSelectorOption}
+              onClick={() => { setSelectedLanguage(SUPPORTED_LANGUAGES.en) }}>
+
+              {
+                selectedLanguage === SUPPORTED_LANGUAGES.en &&
+                <div className={styles.selectedIcon} />
+              }
               <p>{SUPPORTED_LANGUAGES.en}</p>
             </div>
 
-            <div className={styles.languageSelectorOption}>
-              <div className={styles.selectedIcon} />
+            <div className={styles.languageSelectorOption}
+              onClick={() => { setSelectedLanguage(SUPPORTED_LANGUAGES.ar) }}>
+              {
+                selectedLanguage === SUPPORTED_LANGUAGES.ar &&
+                <div className={styles.selectedIcon} />
+              }
               <p>{SUPPORTED_LANGUAGES.ar}</p>
             </div>
 
@@ -92,22 +163,60 @@ function Home({ user }) {
             </p>
           </div>
         </div>
+
+
         <div className={styles.topBar}>
-          <div>
-            something
-          </div>
+
+          <div className={styles.cart} />
+
           <div className={styles.searchBarContainer}>
             <input className={styles.searchBar} placeholder="Search by name or category"
               onChange={(e) => { setFilter(e.target.value) }}
             />
+            <div className={styles.search} />
           </div>
-          <div className={styles.search} />
+
+
+          <div className={styles.logo} />
+
+
         </div>
+
+
+        <HorizontalNavBar selectedLanguage={selectedLanguage} />
       </div>
 
 
 
+      <div className={styles.sections}>
+
+        <div className={styles.topSection}>
+          <div>
+            <div className={styles.topSectionLogo} />
+            <h3>
+              Organic Shop
+            </h3>
+            <p>Where you can Buy Health and Stay Healthy</p>
+          </div>
+        </div>
+
+        <div className={styles.leftSection}>
+          <h3>
+            Organic Fruits
+          </h3>
+        </div>
+
+        <div className={styles.rightSection}>
+          <h3>
+            Organic Vegetables
+          </h3>
+        </div>
+
+      </div>
+
+
       <div className={styles.products}>
+
         {
           filteredProducts.map((product) => (
             <div className={styles.product} key={product.id}>
@@ -147,6 +256,8 @@ function Home({ user }) {
         }
       </div>
 
+
+
     </div>
   )
 }
@@ -157,3 +268,6 @@ export default function Page() {
     <AuthUI InnerComponent={Home} />
   )
 }
+
+
+
