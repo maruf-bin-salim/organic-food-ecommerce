@@ -187,7 +187,7 @@ function Home({ user }) {
 
         <div className={styles.topBar}>
 
-          <div className={styles.cart}  onClick={() => { router.push('/cart') }} />
+          <div className={styles.cart} onClick={() => { router.push('/cart') }} />
 
           <div className={styles.searchBarContainer}>
             <input className={styles.searchBar} placeholder="Search by name or category"
@@ -240,7 +240,9 @@ function Home({ user }) {
         {
           filteredProducts.map((product) => (
             <div className={styles.product} key={product.id}>
-              <div className={styles.productImage}>
+              <div className={styles.productImage}
+                onClick={() => { router.push(`/product/${product.id}`) }}
+              >
                 <img src={product.image} alt={product.name} />
               </div>
               <div className={styles.productName}>{`${product.name} (${product.category?.toLowerCase()})`}</div>

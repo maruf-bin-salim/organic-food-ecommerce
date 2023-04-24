@@ -19,7 +19,7 @@ let products = [
         price: 300,
         image: 'https://picsum.photos/200/300',
         category: 'Fruits'
-    },
+},
     {
         id: 4,
         name: 'Product 4',
