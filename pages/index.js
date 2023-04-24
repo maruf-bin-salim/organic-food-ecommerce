@@ -210,7 +210,7 @@ function Home({ user }) {
 
       <div className={styles.sections}>
 
-        <div className={styles.topSection}  onClick={() => { router.push('/store?filter=all') }}>
+        <div className={styles.topSection} onClick={() => { router.push('/store?filter=all') }}>
           <div>
             <div className={styles.topSectionLogo} />
             <h3>
@@ -220,13 +220,13 @@ function Home({ user }) {
           </div>
         </div>
 
-        <div className={styles.leftSection}  onClick={() => { router.push('/store?filter=fruits') }}>
+        <div className={styles.leftSection} onClick={() => { router.push('/store?filter=fruits') }}>
           <h3>
             Organic Fruits
           </h3>
         </div>
 
-        <div className={styles.rightSection}  onClick={() => { router.push('/store?filter=vegetables') }}>
+        <div className={styles.rightSection} onClick={() => { router.push('/store?filter=vegetables') }}>
           <h3>
             Organic Vegetables
           </h3>
@@ -244,7 +244,7 @@ function Home({ user }) {
                 <img src={product.image} alt={product.name} />
               </div>
               <div className={styles.productName}>{`${product.name} (${product.category?.toLowerCase()})`}</div>
-              <div className={styles.productPrice}>${product.price}</div>
+              <div className={styles.productPrice}>{product.price} OMR </div>
               {
                 isProductInCart(product) &&
                 <div className={styles.removeProduct} onClick={() => { removeProductFromCart(product); router.reload() }} />
