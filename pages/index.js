@@ -187,7 +187,7 @@ function Home({ user }) {
 
         <div className={styles.topBar}>
 
-          <div className={styles.cart} />
+          <div className={styles.cart}  onClick={() => { router.push('/cart') }} />
 
           <div className={styles.searchBarContainer}>
             <input className={styles.searchBar} placeholder="Search by name or category"
