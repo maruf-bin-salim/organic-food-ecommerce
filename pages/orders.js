@@ -48,7 +48,7 @@ const Orders = ({ user }) => {
 
             <div className={styles.topBar}>
                 <div className={styles.hamburger} onClick={() => { setIsNavOpen(true) }} />
-                <div className={styles.pageTitle}> Orders </div>
+                <div className={styles.pageTitle}> Shopping List </div>
                 <div className={styles.cart} onClick={gotoCart} />
             </div>
             <div className={styles.orders}>
@@ -63,7 +63,7 @@ const Orders = ({ user }) => {
                                 </div>
                                 <div className={styles.orderDate}>{`Date : ${order.date}$`}</div>
                                 <div className={styles.orderAddress}>{`Address: ${order.location.address}`}</div>
-                                <div className={styles.orderTotal}>{`Total : ${order.cart.total}$`}</div>
+                                <div className={styles.orderTotal}>{`Total : ${order.cart.total} OMR`}</div>
 
                                 <div className={styles.goToOrder} onClick={() => {
                                     let route = "order" + "/" + order.orderID;

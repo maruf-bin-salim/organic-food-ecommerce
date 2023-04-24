@@ -13,11 +13,13 @@ import { addWishlistedBy, removeWishlistedBy } from '@/database/database_functio
 
 
 const Store = ({ user }) => {
-    
+
     const { products } = useProducts();
     const { gotoCart } = useCart();
 
     const router = useRouter();
+
+    const query = router.query;
 
     const [isNavOpen, setIsNavOpen] = useState(false);
     const [filter, setFilter] = useState(filter_types.all);
@@ -42,21 +44,54 @@ const Store = ({ user }) => {
 
 
 
+
+
     const filterProducts = (products, filter) => {
         return products.filter((product) => {
             return filter === filter_types.all || product.category.toLowerCase() === filter.toLowerCase();
         })
     }
 
+
     useEffect(() => {
+        if (router.query?.filter) {
+            if (router.query.filter === 'fruits') {
+                // let filteredProducts = filterProducts(products, filter_types.fruits);
+                // setFilteredProducts(filteredProducts);
+                setFilter(filter_types.fruits);
+            }
+            else if (router.query.filter === 'vegetables') {
+                // let filteredProducts = filterProducts(products, filter_types.vegetables);
+                // console.log(filteredProducts);
+                // setFilteredProducts(filteredProducts);
+                setFilter(filter_types.vegetables);
+            }
+            else {
+                // let filteredProducts = filterProducts(products, filter_types.all);
+                // setFilteredProducts(filteredProducts);
+                setFilter(filter_types.all);
+            }
+        }
+        else {
+            // let filteredProducts = filterProducts(products, filter_types.all);
+            // setFilteredProducts(filteredProducts);
+            setFilter(filter_types.all);
+        }
+    }, [router.query]);
+
+
+    useEffect(() => {
+        console.log(filter);
         let filteredProducts = filterProducts(products, filter);
+        console.log(filteredProducts);
         setFilteredProducts(filteredProducts);
+    }, [products, filter]);
 
-    }, [filter]);
+    // useEffect(() => {
+    //     setFilteredProducts(products);
+    // }, [products]);
 
-    useEffect(() => {
-        setFilteredProducts(products);
-    }, [products]);
+  
 
     if (isNavOpen) {
         return (
@@ -76,15 +111,15 @@ const Store = ({ user }) => {
 
             <div className={styles.products}>
                 {
-                    filteredProducts.map((product) => (
+                    filteredProducts?.map((product) => (
                         <div className={styles.product} key={product.id}>
                             <div className={styles.productImage}>
                                 <img src={product.image} alt={product.name} />
                             </div>
-                            <div className={styles.productName}>{product.name}</div>
-                            <div className={styles.productPrice}>${product.price}</div>
+                            <div className={styles.productName}>{`${product.name} (${product.category?.toLowerCase()})`}</div>
+                            <div className={styles.productPrice}>{product.price} OMR</div>
                             {
-                                
+
                                 isProductInCart(product) &&
                                 <div className={styles.removeProduct} onClick={() => { removeProductFromCart(product); router.reload() }} />
                             }

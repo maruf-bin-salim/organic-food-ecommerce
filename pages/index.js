@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import { useProducts } from "@/hooks/useProducts";
 import AuthUI from "@/components/AuthUI/AuthUI";
 import { addWishlistedBy, removeWishlistedBy } from "@/database/database_functions";
+import Navigation from "@/components/navigation/navigation";
+
 
 
 
@@ -18,57 +20,58 @@ function HorizontalNavBar({ selectedLanguage }) {
 
   const router = useRouter();
 
+
   return (
     <div className={styles.horizontalNavBar}>
 
       <div className={styles.navOption}
-        onClick={() => { router.push('/') }}>
+        onClick={() => { router.push('/cart') }}>
         {
-          selectedLanguage === SUPPORTED_LANGUAGES.en ? "my cart" : "2"
+          selectedLanguage === SUPPORTED_LANGUAGES.en ? "my cart" : "عربتي"
         }
       </div>
 
       <div className={styles.navOption}
-        onClick={() => { router.push('/') }}>
+        onClick={() => { router.push('/orders') }}>
         {
-          selectedLanguage === SUPPORTED_LANGUAGES.en ? "shopping list" : "2"
-        }
-      </div>
-
-
-      <div className={styles.navOption}
-        onClick={() => { router.push('/') }}>
-        {
-          selectedLanguage === SUPPORTED_LANGUAGES.en ? "saved list" : "2"
+          selectedLanguage === SUPPORTED_LANGUAGES.en ? "shopping list" : "قائمة التسوق"
         }
       </div>
 
 
       <div className={styles.navOption}
-        onClick={() => { router.push('/') }}>
+        onClick={() => { router.push('/saved-list') }}>
         {
-          selectedLanguage === SUPPORTED_LANGUAGES.en ? "offers" : "2"
+          selectedLanguage === SUPPORTED_LANGUAGES.en ? "saved list" : "القائمة المحفوظة"
         }
       </div>
+
 
       <div className={styles.navOption}
         onClick={() => { router.push('/') }}>
         {
-          selectedLanguage === SUPPORTED_LANGUAGES.en ? "fruits" : "2"
+          selectedLanguage === SUPPORTED_LANGUAGES.en ? "offers" : "عروض"
         }
       </div>
 
       <div className={styles.navOption}
-        onClick={() => { router.push('/') }}>
+        onClick={() => { router.push('/store?filter=fruits') }}>
         {
-          selectedLanguage === SUPPORTED_LANGUAGES.en ? "vegetables" : "2"
+          selectedLanguage === SUPPORTED_LANGUAGES.en ? "fruits" : "الفاكهة"
         }
       </div>
 
       <div className={styles.navOption}
-        onClick={() => { router.push('/') }}>
+        onClick={() => { router.push('/store?filter=vegetables') }}>
         {
-          selectedLanguage === SUPPORTED_LANGUAGES.en ? "all products" : "2"
+          selectedLanguage === SUPPORTED_LANGUAGES.en ? "vegetables" : "خضروات"
+        }
+      </div>
+
+      <div className={styles.navOption}
+        onClick={() => { router.push('/store?filter=all') }}>
+        {
+          selectedLanguage === SUPPORTED_LANGUAGES.en ? "all products" : "جميع المنتجات"
         }
       </div>
 
@@ -79,11 +82,20 @@ function HorizontalNavBar({ selectedLanguage }) {
 
 function Home({ user }) {
 
+
+
+
   const router = useRouter();
   const { products } = useProducts();
   const [filter, setFilter] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState(SUPPORTED_LANGUAGES.en);
+
+
+  const [isNavOpen, setIsNavOpen] = useState(false);
+
+
+
 
   const filterProducts = (products, filter) => {
     return products.filter((product) => {
@@ -123,15 +135,23 @@ function Home({ user }) {
 
 
 
-
-
-
+  if (isNavOpen) {
+    return (
+      <Navigation
+        setIsNavOpen={setIsNavOpen}
+      />
+    )
+  }
 
   return (
     <div className={styles.page}>
       <div className={styles.main}>
         <div
           className={styles.infoBar}>
+          {/* <div className={styles.hamburger} onClick={() => { setIsNavOpen(true) }} /> */}
+
+
+
           <div className={styles.languageSelector}>
 
             <div className={styles.languageSelectorOption}
@@ -190,7 +210,7 @@ function Home({ user }) {
 
       <div className={styles.sections}>
 
-        <div className={styles.topSection}>
+        <div className={styles.topSection}  onClick={() => { router.push('/store?filter=all') }}>
           <div>
             <div className={styles.topSectionLogo} />
             <h3>
@@ -200,13 +220,13 @@ function Home({ user }) {
           </div>
         </div>
 
-        <div className={styles.leftSection}>
+        <div className={styles.leftSection}  onClick={() => { router.push('/store?filter=fruits') }}>
           <h3>
             Organic Fruits
           </h3>
         </div>
 
-        <div className={styles.rightSection}>
+        <div className={styles.rightSection}  onClick={() => { router.push('/store?filter=vegetables') }}>
           <h3>
             Organic Vegetables
           </h3>
@@ -223,7 +243,7 @@ function Home({ user }) {
               <div className={styles.productImage}>
                 <img src={product.image} alt={product.name} />
               </div>
-              <div className={styles.productName}>{product.name}</div>
+              <div className={styles.productName}>{`${product.name} (${product.category?.toLowerCase()})`}</div>
               <div className={styles.productPrice}>${product.price}</div>
               {
                 isProductInCart(product) &&

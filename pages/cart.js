@@ -53,8 +53,8 @@ const Cart = () => {
                                 <div className={styles.productImage}>
                                     <img src={product.image} alt={product.name} />
                                 </div>
-                                <div className={styles.productName}>{product.name}</div>
-                                <div className={styles.productPrice}>${product.price}</div>
+                                <div className={styles.productName}>{`${product.name} (${product.category?.toLowerCase()})`}</div>
+                                <div className={styles.productPrice}>{product.price} OMR</div>
                                 <div> x {product.quantity}</div>
                             </div>
                             <div className={styles.productActionButtons}>
@@ -71,7 +71,7 @@ const Cart = () => {
             {
                 products.length > 0 &&
                 <div className={styles.checkout}>
-                    <div className={styles.checkoutButtonTotal}>{`Total: ${getCartTotal()}`} </div>
+                    <div className={styles.checkoutButtonTotal}>{`Total: ${getCartTotal()} OMR`} </div>
                     <div className={styles.checkoutButton} onClick={() => { router.push('/checkout') }}>Checkout  </div>
                 </div>
             }

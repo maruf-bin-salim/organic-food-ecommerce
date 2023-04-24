@@ -46,7 +46,7 @@ const ShoppingList = ({ user }) => {
 
       <div className={styles.topBar}>
         <div className={styles.hamburger} onClick={() => { setIsNavOpen(true) }} />
-        <div className={styles.pageTitle}> Shopping List</div>
+        <div className={styles.pageTitle}> Saved List</div>
         <div className={styles.cart} onClick={gotoCart} />
       </div>
 
@@ -64,7 +64,7 @@ const ShoppingList = ({ user }) => {
                 <img src={product.image} alt={product.name} />
               </div>
               <div className={styles.productName}>{product.name}</div>
-              <div className={styles.productPrice}>${product.price}</div>
+              <div className={styles.productPrice}>{product.price} OMR</div>
               {
 
                 isProductInCart(product) &&

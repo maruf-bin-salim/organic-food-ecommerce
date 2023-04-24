@@ -39,25 +39,25 @@ const Navigation = ({ setIsNavOpen }) => {
                 <div className={styles.navLink}
                     onClick={() => { router.push('/store') }}
                 >
-                    <div className={styles.navLinkText}>store</div>
+                    <div className={styles.navLinkText}>Organic Shop</div>
                 </div>
 
                 <div className={styles.navLink}
                     onClick={() => { router.push('/cart') }}
                 >
-                    <div className={styles.navLinkText}>Cart</div>
+                    <div className={styles.navLinkText}>My Cart</div>
                 </div>
 
                 <div className={styles.navLink}
-                    onClick={() => { router.push('/shopping-list') }}
+                    onClick={() => { router.push('/saved-list') }}
                 >
-                    <div className={styles.navLinkText}>Shopping List</div>
+                    <div className={styles.navLinkText}>Saved List</div>
                 </div>
 
                 <div className={styles.navLink}
                     onClick={() => { router.push('/orders') }}
                 >
-                    <div className={styles.navLinkText}>Orders</div>
+                    <div className={styles.navLinkText}>Shopping List</div>
                 </div>
 
                 <div className={styles.navLink}
