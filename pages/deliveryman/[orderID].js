@@ -31,7 +31,7 @@ function ProductTable({ products, totalPrice }) {
                         <tr key={product.id}>
                             <td>{product.name}</td>
                             <td>{product.price}</td>
-                            <td>{product.quantity}</td>
+                            <td>{product.quantity} kg</td>
                         </tr>
                     )
                 })}

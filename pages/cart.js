@@ -55,11 +55,11 @@ const Cart = () => {
                                 </div>
                                 <div className={styles.productName}>{`${product.name} (${product.category?.toLowerCase()})`}</div>
                                 <div className={styles.productPrice}>{product.price} OMR</div>
-                                <div> x {product.quantity}</div>
+                                <div> x {product.quantity} kg</div>
                             </div>
                             <div className={styles.productActionButtons}>
                                 <div className={styles.removeProduct} onClick={() => { decreaseQuantityOfProductInCart(product); router.reload() }} />
-                                <div className={styles.productQuantity}>{product.quantity}</div>
+                                <div className={styles.productQuantity}>{product.quantity} kg</div>
                                 <div className={styles.addProduct} onClick={() => { increaseQuantityOfProductInCart(product); router.reload() }} />
                             </div>
                         </div>
