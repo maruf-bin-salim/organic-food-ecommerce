@@ -35,7 +35,7 @@ const Product = () => {
                     src={product.image} alt={product.name}
                 />
                 <div className={styles.productInformation}>
-                    <h1>{product.name}</h1>
+                    <h1>{product.name} ({product.category})</h1>
                     <p>{product.price} OMR</p>
                 </div>
                 <p
