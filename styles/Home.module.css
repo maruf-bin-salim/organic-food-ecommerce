@@ -8,7 +8,7 @@
 
 .main {
     height: max-content;
-    
+    min-height: 30vh;
     background-color: #73b651;
     position: relative;
     min-width: max-content;
@@ -245,7 +245,8 @@
     background-repeat: no-repeat;
 }
 
-.leftSection:hover , .rightSection:hover {
+.leftSection:hover,
+.rightSection:hover {
     text-decoration: underline;
     cursor: pointer;
 }
@@ -253,6 +254,7 @@
 .topSection:hover h3 {
     text-decoration: underline;
 }
+
 .topSection:hover {
     cursor: pointer;
 }
