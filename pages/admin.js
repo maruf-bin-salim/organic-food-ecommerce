@@ -85,7 +85,7 @@ function EditableProduct({ product: passedProduct, setIsLoading }) {
                 <img src={product.image} alt={product.name} />
             </div>
             <div className={styles.productName}>{product.name} ({product?.category})</div>
-            <div className={styles.productPrice}>{product.price} OMR</div>
+            <div className={styles.productPrice}>{product.price} TK</div>
             <div className={styles.inputs}>
                 <label>
                     Name
@@ -226,7 +226,7 @@ function AddNewProduct({ setIsLoading }) {
                     <img src={product.image} alt={product.name} />
                 </div>
                 <div className={styles.productName}>{product.name} {product.category ? `(${product.category})` : ""}</div>
-                <div className={styles.productPrice}>{product.price} OMR</div>
+                <div className={styles.productPrice}>{product.price} TK</div>
                 <div className={styles.inputs}>
                     <label>
                         Name

@@ -60,13 +60,13 @@ const ShoppingList = ({ user }) => {
         {
           products.map((product) => (
             <div className={styles.product} key={product.id}>
-               <div className={styles.productImage}
+              <div className={styles.productImage}
                 onClick={() => { router.push(`/product/${product.id}`) }}
               >
                 <img src={product.image} alt={product.name} />
               </div>
               <div className={styles.productName}>{product.name}</div>
-              <div className={styles.productPrice}>{product.price} OMR</div>
+              <div className={styles.productPrice}>{product.price} TK</div>
               {
 
                 isProductInCart(product) &&

@@ -63,7 +63,7 @@ const Orders = ({ user }) => {
                                 </div>
                                 <div className={styles.orderDate}>{`Date : ${order.date}$`}</div>
                                 <div className={styles.orderAddress}>{`Address: ${order.location.address}`}</div>
-                                <div className={styles.orderTotal}>{`Total : ${order.cart.total} OMR`}</div>
+                                <div className={styles.orderTotal}>{`Total : ${order.cart.total} TK`}</div>
 
                                 <div className={styles.goToOrder} onClick={() => {
                                     let route = "order" + "/" + order.orderID;

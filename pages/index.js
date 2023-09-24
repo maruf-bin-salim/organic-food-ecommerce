@@ -246,7 +246,7 @@ function Home({ user }) {
                 <img src={product.image} alt={product.name} />
               </div>
               <div className={styles.productName}>{`${product.name} (${product.category?.toLowerCase()})`}</div>
-              <div className={styles.productPrice}>{product.price} OMR </div>
+              <div className={styles.productPrice}>{product.price} TK </div>
               {
                 isProductInCart(product) &&
                 <div className={styles.removeProduct} onClick={() => { removeProductFromCart(product); router.reload() }} />
