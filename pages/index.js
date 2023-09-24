@@ -13,7 +13,7 @@ import Navigation from "@/components/navigation/navigation";
 
 const SUPPORTED_LANGUAGES = {
   en: "English",
-  ar: "العربية",
+  ar: "বাংলা",
 };
 
 function HorizontalNavBar({ selectedLanguage }) {
